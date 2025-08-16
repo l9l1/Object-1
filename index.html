@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة إنشاء السيرة الذاتية</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+  .container { max-width: 700px; margin: auto; background: #fff; padding: 20px 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  h2 { text-align: center; margin-bottom: 20px; }
+  input, textarea { width: 100%; margin: 10px 0; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+  button { margin: 10px 5px 0 0; padding: 10px 20px; background: #0070f3; border: none; border-radius: 6px; color: #fff; cursor: pointer; }
+  button:hover { background: #0059c1; }
+  .cv-preview { margin-top: 20px; padding: 15px; background: #f8f8f8; border-radius: 8px; }
+  .cv-preview h3 { text-align: center; margin-bottom: 15px; }
+  .cv-preview p { margin: 5px 0; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>📄 منصة إنشاء السيرة الذاتية</h2>
+
+  <div id="formContainer">
+    <input type="text" id="name" placeholder="الاسم">
+    <input type="email" id="email" placeholder="البريد الإلكتروني">
+    <input type="tel" id="phone" placeholder="رقم الجوال">
+    <textarea id="experience" placeholder="أدخل خبراتك"></textarea>
+    <textarea id="skills" placeholder="أدخل مهاراتك"></textarea>
+    <button onclick="generateCV()">➡️ معاينة</button>
+  </div>
+
+  <div id="cvPreview" class="cv-preview" style="display:none;">
+    <h3>معاينة السيرة الذاتية</h3>
+    <p><b>الاسم:</b> <span id="cvName"></span></p>
+    <p><b>الإيميل:</b> <span id="cvEmail"></span></p>
+    <p><b>الجوال:</b> <span id="cvPhone"></span></p>
+    <p><b>الخبرات:</b> <span id="cvExperience"></span></p>
+    <p><b>المهارات:</b> <span id="cvSkills"></span></p>
+    <button onclick="editCV()">✏️ تعديل</button>
+    <button onclick="downloadPDF()">💾 تحميل PDF</button>
+  </div>
+</div>
+
+<!-- مكتبة html2pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+function generateCV() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const experience = document.getElementById('experience').value.trim();
+  const skills = document.getElementById('skills').value.trim();
+
+  if(!name || !email || !phone) {
+    alert('يرجى ملء الحقول الأساسية: الاسم، البريد، الجوال.');
+    return;
+  }
+
+  document.getElementById('cvName').innerText = name;
+  document.getElementById('cvEmail').innerText = email;
+  document.getElementById('cvPhone').innerText = phone;
+  document.getElementById('cvExperience').innerText = experience || '-';
+  document.getElementById('cvSkills').innerText = skills || '-';
+
+  document.getElementById('formContainer').style.display = 'none';
+  document.getElementById('cvPreview').style.display = 'block';
+}
+
+function editCV() {
+  document.getElementById('formContainer').style.display = 'block';
+  document.getElementById('cvPreview').style.display = 'none';
+}
+
+function downloadPDF() {
+  const element = document.getElementById('cvPreview');
+  html2pdf().set({ filename: 'السيرة_الذاتية.pdf', html2canvas: { scale: 2 } }).from(element).save();
+}
+</script>
+
+</body>
+</html>
