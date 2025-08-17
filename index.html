@@ -3,21 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصة السيرة الذاتية المتقدمة</title>
+<title>منصة السيرة الذاتية الاحترافية</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
-body {
-  font-family: 'Cairo', sans-serif;
-  background: linear-gradient(135deg,#667eea,#764ba2);
-  margin:0; padding:20px; color:#333;
+body{
+  font-family:'Cairo',sans-serif;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  margin:0;padding:20px;color:#333;
 }
 .container{
-  max-width: 900px;
-  margin:auto;
-  background:#fff;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  max-width:900px;margin:auto;background:#fff;padding:30px;border-radius:15px;box-shadow:0 15px 40px rgba(0,0,0,0.2);
 }
 h2{text-align:center;margin-bottom:25px;color:#667eea;}
 input, textarea{width:100%;margin:10px 0;padding:12px;border-radius:8px;border:1px solid #ccc;font-size:15px;font-family:'Cairo',sans-serif;}
@@ -25,14 +20,16 @@ button{
   margin:10px 5px 0 0;padding:12px 25px;background:#667eea;border:none;border-radius:8px;color:#fff;font-weight:600;cursor:pointer;transition:0.3s;
 }
 button:hover{background:#4a54c8;}
-.cv-preview{margin-top:20px;padding:20px;background:#f8f9fc;border-radius:12px;color:#2d3748;}
-.cv-header{text-align:center;background:#667eea;color:white;padding:25px;border-radius:12px 12px 0 0;}
-.cv-header h3{margin:0;font-size:28px;font-weight:700;}
+.cv-preview{margin-top:20px;padding:0;background:#f8f9fc;border-radius:12px;color:#2d3748;}
+.cv-header{text-align:center;background:#667eea;color:white;padding:30px;border-radius:12px 12px 0 0;}
+.cv-header h3{margin:0;font-size:30px;font-weight:700;}
 .cv-header p{margin:5px 0;font-size:16px;}
-.cv-body{padding:20px;}
-.cv-section{margin-bottom:20px;}
-.cv-section h4{color:#667eea;margin-bottom:10px;font-size:18px;border-bottom:2px solid #667eea;display:inline-block;padding-bottom:5px;}
-.cv-section p{margin:5px 0;line-height:1.5;}
+.cv-body{padding:25px;}
+.cv-section{margin-bottom:25px;}
+.cv-section h4{
+  color:#fff;background:#667eea;padding:8px 12px;border-radius:8px;font-size:18px;display:inline-block;margin-bottom:12px;
+}
+.cv-section p{margin:5px 0;line-height:1.5;padding:8px 12px;background:#e2e8f0;border-radius:6px;}
 .dynamic-section{border:1px solid #ccc;border-radius:10px;padding:10px;margin-bottom:10px;}
 .remove-btn{background:#f56565;}
 </style>
@@ -40,125 +37,131 @@ button:hover{background:#4a54c8;}
 <body>
 
 <div class="container">
-  <h2>🎯 منشئ السيرة الذاتية المتقدم</h2>
+<h2>🎯 منشئ السيرة الذاتية الاحترافي</h2>
 
-  <div id="formContainer">
-    <input type="text" id="name" placeholder="الاسم الكامل" required>
-    <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-    <input type="tel" id="phone" placeholder="رقم الجوال" required>
+<div id="formContainer">
+<input type="text" id="name" placeholder="الاسم الكامل" required>
+<input type="email" id="email" placeholder="البريد الإلكتروني" required>
+<input type="tel" id="phone" placeholder="رقم الجوال" required>
 
-    <h3>💼 الخبرات العملية</h3>
-    <div id="experienceContainer"></div>
-    <button onclick="addExperience()">➕ إضافة خبرة</button>
+<h3>💼 الخبرات العملية</h3>
+<div id="experienceContainer"></div>
+<button onclick="addExperience()">➕ إضافة خبرة</button>
 
-    <h3>🎓 التعليم</h3>
-    <div id="educationContainer"></div>
-    <button onclick="addEducation()">➕ إضافة مؤهل</button>
+<h3>🎓 التعليم</h3>
+<div id="educationContainer"></div>
+<button onclick="addEducation()">➕ إضافة مؤهل</button>
 
-    <h3>⚡ المهارات</h3>
-    <textarea id="skills" placeholder="اكتب كل مهارة بسطر جديد"></textarea>
+<h3>⚡ المهارات</h3>
+<textarea id="skills" placeholder="اكتب كل مهارة بسطر جديد"></textarea>
 
-    <button onclick="generateCV()">📄 معاينة السيرة الذاتية</button>
-  </div>
+<button onclick="generateCV()">📄 معاينة السيرة الذاتية</button>
+</div>
 
-  <div id="cvPreview" class="cv-preview" style="display:none;">
-    <div class="cv-header">
-      <h3 id="cvName"></h3>
-      <p id="cvEmail"></p>
-      <p id="cvPhone"></p>
-    </div>
-    <div class="cv-body">
-      <div class="cv-section">
-        <h4>💼 الخبرات العملية</h4>
-        <div id="cvExperience"></div>
-      </div>
-      <div class="cv-section">
-        <h4>🎓 التعليم</h4>
-        <div id="cvEducation"></div>
-      </div>
-      <div class="cv-section">
-        <h4>⚡ المهارات</h4>
-        <div id="cvSkills"></div>
-      </div>
-    </div>
-    <button onclick="editCV()">✏️ تعديل</button>
-    <button onclick="downloadPDF()">💾 تحميل PDF</button>
-  </div>
+<div id="cvPreview" class="cv-preview" style="display:none;">
+<div class="cv-header">
+<h3 id="cvName"></h3>
+<p id="cvEmail"></p>
+<p id="cvPhone"></p>
+</div>
+<div class="cv-body">
+<div class="cv-section">
+<h4>💼 الخبرات العملية</h4>
+<div id="cvExperience"></div>
+</div>
+<div class="cv-section">
+<h4>🎓 التعليم</h4>
+<div id="cvEducation"></div>
+</div>
+<div class="cv-section">
+<h4>⚡ المهارات</h4>
+<div id="cvSkills"></div>
+</div>
+</div>
+<button onclick="editCV()">✏️ تعديل</button>
+<button onclick="downloadPDF()">💾 تحميل PDF</button>
+</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-let expCount=0, eduCount=0;
+let expCount=0,eduCount=0;
 
 function addExperience(){
-  expCount++;
-  const container=document.getElementById('experienceContainer');
-  const div=document.createElement('div');
-  div.className='dynamic-section';
-  div.innerHTML=`<input type="text" placeholder="المسمى الوظيفي">
-                 <input type="text" placeholder="اسم الشركة">
-                 <input type="text" placeholder="مدة العمل">
-                 <textarea placeholder="وصف المهام"></textarea>
-                 <button class="remove-btn" onclick="this.parentElement.remove()">حذف</button>`;
-  container.appendChild(div);
+expCount++;
+const container=document.getElementById('experienceContainer');
+const div=document.createElement('div');
+div.className='dynamic-section';
+div.innerHTML=`<input type="text" placeholder="المسمى الوظيفي">
+<input type="text" placeholder="اسم الشركة">
+<input type="text" placeholder="مدة العمل">
+<textarea placeholder="وصف المهام"></textarea>
+<button class="remove-btn" onclick="this.parentElement.remove()">حذف</button>`;
+container.appendChild(div);
 }
 
 function addEducation(){
-  eduCount++;
-  const container=document.getElementById('educationContainer');
-  const div=document.createElement('div');
-  div.className='dynamic-section';
-  div.innerHTML=`<input type="text" placeholder="الدرجة العلمية">
-                 <input type="text" placeholder="اسم الجامعة/المؤسسة">
-                 <input type="text" placeholder="سنة التخرج">
-                 <button class="remove-btn" onclick="this.parentElement.remove()">حذف</button>`;
-  container.appendChild(div);
+eduCount++;
+const container=document.getElementById('educationContainer');
+const div=document.createElement('div');
+div.className='dynamic-section';
+div.innerHTML=`<input type="text" placeholder="الدرجة العلمية">
+<input type="text" placeholder="اسم الجامعة/المؤسسة">
+<input type="text" placeholder="سنة التخرج">
+<button class="remove-btn" onclick="this.parentElement.remove()">حذف</button>`;
+container.appendChild(div);
 }
 
 function generateCV(){
-  const name=document.getElementById('name').value.trim();
-  const email=document.getElementById('email').value.trim();
-  const phone=document.getElementById('phone').value.trim();
-  const skills=document.getElementById('skills').value.trim().replace(/\n/g,' | ');
+const name=document.getElementById('name').value.trim();
+const email=document.getElementById('email').value.trim();
+const phone=document.getElementById('phone').value.trim();
+const skills=document.getElementById('skills').value.trim().replace(/\n/g,' | ');
 
-  if(!name||!email||!phone){alert('يرجى ملء الحقول الأساسية!'); return;}
+if(!name||!email||!phone){alert('يرجى ملء الحقول الأساسية!');return;}
 
-  document.getElementById('cvName').innerText=name;
-  document.getElementById('cvEmail').innerText=email;
-  document.getElementById('cvPhone').innerText=phone;
+document.getElementById('cvName').innerText=name;
+document.getElementById('cvEmail').innerText=email;
+document.getElementById('cvPhone').innerText=phone;
 
-  // الخبرات
-  const expElements=document.querySelectorAll('#experienceContainer .dynamic-section');
-  let expHTML='';
-  expElements.forEach(exp=>{
-    const inputs=exp.querySelectorAll('input, textarea');
-    expHTML+=`<p><b>${inputs[0].value}</b> - ${inputs[1].value} | ${inputs[2].value}<br>${inputs[3].value}</p>`;
-  });
-  document.getElementById('cvExperience').innerHTML=expHTML||'-';
+// الخبرات
+const expElements=document.querySelectorAll('#experienceContainer .dynamic-section');
+let expHTML='';
+expElements.forEach(exp=>{
+const inputs=exp.querySelectorAll('input, textarea');
+expHTML+=`<p><b>${inputs[0].value}</b> - ${inputs[1].value} | ${inputs[2].value}<br>${inputs[3].value}</p>`;
+});
+document.getElementById('cvExperience').innerHTML=expHTML||'-';
 
-  // التعليم
-  const eduElements=document.querySelectorAll('#educationContainer .dynamic-section');
-  let eduHTML='';
-  eduElements.forEach(edu=>{
-    const inputs=edu.querySelectorAll('input');
-    eduHTML+=`<p><b>${inputs[0].value}</b> - ${inputs[1].value} | ${inputs[2].value}</p>`;
-  });
-  document.getElementById('cvEducation').innerHTML=eduHTML||'-';
+// التعليم
+const eduElements=document.querySelectorAll('#educationContainer .dynamic-section');
+let eduHTML='';
+eduElements.forEach(edu=>{
+const inputs=edu.querySelectorAll('input');
+eduHTML+=`<p><b>${inputs[0].value}</b> - ${inputs[1].value} | ${inputs[2].value}</p>`;
+});
+document.getElementById('cvEducation').innerHTML=eduHTML||'-';
 
-  document.getElementById('cvSkills').innerText=skills||'-';
+document.getElementById('cvSkills').innerText=skills||'-';
 
-  document.getElementById('formContainer').style.display='none';
-  document.getElementById('cvPreview').style.display='block';
+document.getElementById('formContainer').style.display='none';
+document.getElementById('cvPreview').style.display='block';
 }
 
 function editCV(){
-  document.getElementById('formContainer').style.display='block';
-  document.getElementById('cvPreview').style.display='none';
+document.getElementById('formContainer').style.display='block';
+document.getElementById('cvPreview').style.display='none';
 }
 
 function downloadPDF(){
-  const element=document.getElementById('cvPreview');
-  html2pdf().set({margin:0.5,filename:'السيرة_الذاتية.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:3},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).from(element).save();
+const element=document.getElementById('cvPreview');
+html2pdf().set({
+margin:0.5,
+filename:'السيرة_الذاتية.pdf',
+image:{type:'jpeg',quality:0.98},
+html2canvas:{scale:3},
+jsPDF:{unit:'in',format:'a4',orientation:'portrait'}
+}).from(element).save();
 }
 </script>
 </body>
